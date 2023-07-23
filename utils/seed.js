@@ -48,6 +48,7 @@ connection.once("open", async () => {
       Math.random() * (99 - 18 + 1) + 18
     )}`;
     const email = `${username}@jd.com`;
+
     users.push({
       username,
       email,
