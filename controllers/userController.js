@@ -65,22 +65,24 @@ module.exports = {
   async deleteUser(req, res) {
     try {
       const user = await Users.findOneAndRemove({ _id: req.params.userId });
-
+      console.log(user);
       if (!user) {
         return res.status(404).json({ message: "No such user exists" });
       }
 
-      // const thought = await Thoughts.findOneAndUpdate(
-      //   { username: req.params.userId },
-      //   { $pull: { users: req.params.userId } },
-      //   { new: true }
-      // );
+      user.thoughts.forEach(async (id) => {
+        const thought = await Thoughts.findOneAndRemove(
+          { _id: id },
+          { $pull: { _id: id } },
+          { new: true }
+        );
 
-      // if (!course) {
-      //   return res.status(404).json({
-      //     message: 'user deleted, but no courses found',
-      //   });
-      // }
+        if (!thought) {
+          return res.status(404).json({
+            message: "no thoughts found",
+          });
+        }
+      });
 
       res.json({ message: "user successfully deleted" });
     } catch (err) {
