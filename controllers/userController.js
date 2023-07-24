@@ -16,9 +16,10 @@ module.exports = {
   // Get a single User
   async getSingleuser(req, res) {
     try {
-      const user = await Users.findOne({ _id: req.params.userId }).select(
-        "-__v"
-      );
+      const user = await Users.findOne({ _id: req.params.userId })
+        .populate("thoughts")
+        .populate("friends")
+        .select("-__v");
 
       if (!user) {
         return res.status(404).json({ message: "No user with that ID" });
@@ -116,7 +117,7 @@ module.exports = {
     try {
       const user = await Users.findOneAndUpdate(
         { _id: req.params.userId },
-        { $pull: { friends: { _id: req.params.friendId } } },
+        { $pull: { friends: req.params.friendId } },
         { new: true }
       );
 
