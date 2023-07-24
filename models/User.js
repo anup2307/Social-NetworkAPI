@@ -18,8 +18,8 @@ const userSchema = new Schema(
         "Please fill a valid email address",
       ],
     },
-    thoughts: [{ type: Schema.Types.ObjectId, ref: "Thoughts" }],
-    friends: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    thoughts: [{ type: Schema.Types.ObjectId, ref: "thoughts" }],
+    friends: [{ type: Schema.Types.ObjectId, ref: "user" }],
   },
   {
     toJSON: {
