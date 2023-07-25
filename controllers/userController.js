@@ -55,7 +55,7 @@ module.exports = {
       );
 
       if (!user) {
-        res.status(404).json({ message: "No user with this id!" });
+        return res.status(404).json({ message: "No user with this id!" });
       }
 
       res.json(user);
@@ -68,7 +68,7 @@ module.exports = {
   async deleteUser(req, res) {
     try {
       const user = await Users.findOneAndRemove({ _id: req.params.userId });
-      console.log(user);
+ 
       if (!user) {
         return res.status(404).json({ message: "No such user exists" });
       }

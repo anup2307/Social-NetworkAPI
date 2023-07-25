@@ -24,9 +24,7 @@ module.exports = {
         return res.status(404).json({ message: "No thought with that ID" });
       }
 
-      res.json({
-        thought,
-      });
+      res.json({ thought });
     } catch (err) {
       console.log(err);
       return res.status(500).json(err);
@@ -45,7 +43,7 @@ module.exports = {
       );
 
       if (!user) {
-        res.status(404).json({ message: "No user found!" });
+        return res.status(404).json({ message: "No user found!" });
       }
 
       res.json(thought);
@@ -64,7 +62,7 @@ module.exports = {
       );
 
       if (!thought) {
-        res.status(404).json({ message: "No thought with this id!" });
+        return res.status(404).json({ message: "No thought with this id!" });
       }
 
       res.json(thought);
@@ -84,17 +82,17 @@ module.exports = {
         return res.status(404).json({ message: "No such thought exists" });
       }
 
-      // const user = await Users.findOneAndUpdate(
-      //   { thoughts: req.params.thoughtId },
-      //   { $pull: { thoughts: req.params.thoughtId } },
-      //   { new: true }
-      // );
+      const user = await Users.findOneAndUpdate(
+        { thoughts: req.params.thoughtId },
+        { $pull: { thoughts: req.params.thoughtId } },
+        { new: true }
+      );
 
-      // if (!user) {
-      //   return res.status(404).json({
-      //     message: "Thought deleted, but no user data found",
-      //   });
-      // }
+      if (!user) {
+        return res.status(404).json({
+          message: "Thought deleted, but no user data found",
+        });
+      }
 
       res.json({ message: "Thought successfully deleted" });
     } catch (err) {
