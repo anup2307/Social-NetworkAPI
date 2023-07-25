@@ -12,6 +12,7 @@ module.exports = {
       return res.status(500).json(err);
     }
   },
+
   // Get a single Thought by its ID
   async getSinglethought(req, res) {
     try {
@@ -31,7 +32,8 @@ module.exports = {
       return res.status(500).json(err);
     }
   },
-  // create a new thought
+
+  // create a new thought and push it to the thoughts array in the user collection
   async createThought(req, res) {
     try {
       const thought = await Thoughts.create(req.body);
@@ -70,6 +72,7 @@ module.exports = {
       res.status(500).json(err);
     }
   },
+
   // Delete a Thought and remove them from the User
   async deleteThought(req, res) {
     try {
@@ -81,17 +84,17 @@ module.exports = {
         return res.status(404).json({ message: "No such thought exists" });
       }
 
-      //   const user = await Users.findOneAndUpdate(
-      //     { thoughts: req.params.thoughtId },
-      //     { $pull: { thoughts: req.params.thoughtId } },
-      //     { new: true }
-      //   );
+      // const user = await Users.findOneAndUpdate(
+      //   { thoughts: req.params.thoughtId },
+      //   { $pull: { thoughts: req.params.thoughtId } },
+      //   { new: true }
+      // );
 
-      //   if (!user) {
-      //     return res.status(404).json({
-      //       message: "Thought deleted, but no user data found",
-      //     });
-      //   }
+      // if (!user) {
+      //   return res.status(404).json({
+      //     message: "Thought deleted, but no user data found",
+      //   });
+      // }
 
       res.json({ message: "Thought successfully deleted" });
     } catch (err) {

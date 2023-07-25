@@ -13,6 +13,7 @@ module.exports = {
       return res.status(500).json(err);
     }
   },
+
   // Get a single User
   async getSingleuser(req, res) {
     try {
@@ -33,6 +34,7 @@ module.exports = {
       return res.status(500).json(err);
     }
   },
+
   // create a new user
   async createUser(req, res) {
     try {
@@ -62,7 +64,7 @@ module.exports = {
     }
   },
 
-  // Delete a user and remove them from the course
+  // Delete a user and remove their corresponding thoughts
   async deleteUser(req, res) {
     try {
       const user = await Users.findOneAndRemove({ _id: req.params.userId });
